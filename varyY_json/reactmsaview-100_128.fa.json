@@ -1,7 +1,7 @@
 {
   "results": [
     {
-      "command": "node bench/reactmsaview.ts 'https://gmod.org/react-msaview/?data={\"msaview\":{\"msaFilehandle\":{\"uri\":\"https://jbrowse.org/demos/msabench/100_128.fa\"}}}'",
+      "command": "node bench/jbrowsemsa.ts 'https://gmod.org/react-msaview/?data={\"msaview\":{\"msaFilehandle\":{\"uri\":\"https://jbrowse.org/demos/msabench/100_128.fa\"}}}'",
       "mean": 1.37160513648,
       "stddev": 0.058445128103830964,
       "median": 1.3706380779799998,

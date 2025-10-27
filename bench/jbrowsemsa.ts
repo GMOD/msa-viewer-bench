@@ -22,10 +22,10 @@ const ret = await page.$eval('canvas', (val: HTMLCanvasElement) =>
 fs.mkdirSync('screenshots', { recursive: true })
 const p = encodeURIComponent(url)
 await page.screenshot({
-  path: `screenshots/reactmsaview-fullpage-${p}.png`,
+  path: `screenshots/jbrowsemsa-fullpage-${p}.png`,
 })
 fs.writeFileSync(
-  `screenshots/reactmsaview-fragment-${p}.png`,
+  `screenshots/jbrowsemsa-fragment-${p}.png`,
   Buffer.from(ret, 'base64'),
 )
 
