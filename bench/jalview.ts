@@ -2,21 +2,47 @@ import puppeteer from 'puppeteer'
 import fs from 'fs'
 
 const browser = await puppeteer.launch({
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    // Allow HTTP for local server
+    '--disable-features=HttpsFirstBalancedModeAutoEnable',
+  ],
 })
 const page = await browser.newPage()
 const url = process.argv[2]
 
-await page.goto(url)
+let fastaRequestStart = 0
+let fastaDownloadTime = 0
 
-// Set screen size
+page.on('request', request => {
+  if (request.url().includes('.fa')) {
+    fastaRequestStart = Date.now()
+  }
+})
+
+page.on('response', response => {
+  if (response.url().includes('.fa') && fastaRequestStart > 0) {
+    fastaDownloadTime = Date.now() - fastaRequestStart
+  }
+})
+
+const navStart = Date.now()
+await page.goto(url, { waitUntil: 'load' })
+const pageLoadTime = Date.now() - navStart
+
 await page.setViewport({ width: 1080, height: 1024 })
 
+const renderStart = Date.now()
 await page.waitForSelector('#testApplet_canvas2', { timeout: 120000 })
+const renderTime = Date.now() - renderStart
+const totalTime = Date.now() - navStart
+
 const ret = await page.$eval('#testApplet_canvas2', (val: HTMLCanvasElement) =>
   val.toDataURL().replace(/^data:image\/\w+;base64,/, ''),
 )
 fs.mkdirSync('screenshots', { recursive: true })
+fs.mkdirSync('timings', { recursive: true })
 const p = encodeURIComponent(url)
 await page.screenshot({
   path: `screenshots/jalview-fullpage-${p}.png`,
@@ -24,6 +50,10 @@ await page.screenshot({
 fs.writeFileSync(
   `screenshots/jalview-fragment-${p}.png`,
   Buffer.from(ret, 'base64'),
+)
+fs.appendFileSync(
+  `timings/jalview.jsonl`,
+  JSON.stringify({ pageLoadTime, fastaDownloadTime, renderTime, totalTime, url }) + '\n',
 )
 
 await browser.close()

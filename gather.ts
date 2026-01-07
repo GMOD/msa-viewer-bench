@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-const base = process.argv[2]
+const base = process.argv[2] || 'json'
 console.log(
   [
     ['program', 'x_size', 'y_size', 'time', 'mean', 'sd'].join('\t'),
