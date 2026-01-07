@@ -43,7 +43,6 @@ const totalTime = Date.now() - navStart
 const ret = await page.$eval('canvas', (val: HTMLCanvasElement) =>
   val.toDataURL().replace(/^data:image\/\w+;base64,/, ''),
 )
-fs.mkdirSync('screenshots', { recursive: true })
 fs.mkdirSync('timings', { recursive: true })
 const match = url.match(/(\d+_\d+)\.fa/)
 const sizeLabel = match ? match[1] : 'unknown'

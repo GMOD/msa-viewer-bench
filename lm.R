@@ -22,19 +22,14 @@ create_linear_models <- function(data, x_var = "size", y_var = "time", group_var
   print(slopes)
 }
 
-# Read and prepare data
 df <- read.table("varyXY.tsv", header = TRUE)
-df$size <- df$size * df$size
 print("varyXY")
 create_linear_models(df)
 
 df <- read.table("varyX.tsv", header = TRUE)
-df$size <- df$x_size * df$y_size
 print("varyX")
 create_linear_models(df)
 
-df$size <- df$x_size * df$y_size
 df <- read.table("varyY.tsv", header = TRUE)
-df$size <- df$x_size * df$y_size
 print("varyY")
 create_linear_models(df)

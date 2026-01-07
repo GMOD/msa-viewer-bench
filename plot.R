@@ -6,7 +6,6 @@ library(dplyr)
 
 
 df <- read.table("varyXY.tsv", header = TRUE)
-df$size <- df$size * df$size
 p1 <- ggplot(df, aes(x = size, y = time, color = program)) +
   labs(tag = "A", title = "Varying both dimensions (N x N)") +
   geom_line(stat = "summary") +
@@ -18,7 +17,6 @@ p1 <- ggplot(df, aes(x = size, y = time, color = program)) +
 
 
 df <- read.table("varyX.tsv", header = TRUE)
-df$size <- df$x_size * df$y_size
 p2 <- ggplot(df, aes(x = size, y = time, color = program)) +
   labs(tag = "B", title = "Varying number of columns (fixed 100 rows)") +
   geom_line(stat = "summary") +
@@ -34,7 +32,6 @@ p2 <- ggplot(df, aes(x = size, y = time, color = program)) +
 
 
 df <- read.table("varyY.tsv", header = TRUE)
-df$size <- df$x_size * df$y_size
 p3 <- ggplot(df, aes(x = size, y = time, color = program)) +
   labs(tag = "C", title = "Varying number of rows (fixed 100 columns)") +
   geom_line(stat = "summary") +
