@@ -8,7 +8,7 @@ library(dplyr)
 df <- read.table("varyXY.tsv", header = TRUE)
 df$size <- df$size * df$size
 p1 <- ggplot(df, aes(x = size, y = time, color = program)) +
-  labs(tag = "A") +
+  labs(tag = "A", title = "Varying both dimensions (N x N)") +
   geom_line(stat = "summary") +
   geom_errorbar(width = 0.2, stat = "summary") +
   geom_jitter(size = 0.5, position = position_jitter(width = 0.1, seed = 42)) +
@@ -20,7 +20,7 @@ p1 <- ggplot(df, aes(x = size, y = time, color = program)) +
 df <- read.table("varyX.tsv", header = TRUE)
 df$size <- df$x_size * df$y_size
 p2 <- ggplot(df, aes(x = size, y = time, color = program)) +
-  labs(tag = "B") +
+  labs(tag = "B", title = "Varying number of columns (fixed 100 rows)") +
   geom_line(stat = "summary") +
   geom_errorbar(stat = "summary", aes(width = 20000)) +
   geom_jitter(size = 0.5, position = position_jitter(width = 0.1, seed = 42)) +
@@ -36,7 +36,7 @@ p2 <- ggplot(df, aes(x = size, y = time, color = program)) +
 df <- read.table("varyY.tsv", header = TRUE)
 df$size <- df$x_size * df$y_size
 p3 <- ggplot(df, aes(x = size, y = time, color = program)) +
-  labs(tag = "C") +
+  labs(tag = "C", title = "Varying number of rows (fixed 100 columns)") +
   geom_line(stat = "summary") +
   geom_errorbar(width = 0.2, stat = "summary") +
   geom_jitter(size = 0.5, position = position_jitter(width = 0.1, seed = 42)) +

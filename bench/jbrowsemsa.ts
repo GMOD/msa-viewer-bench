@@ -2,7 +2,11 @@ import puppeteer from 'puppeteer'
 import fs from 'fs'
 
 const browser = await puppeteer.launch({
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-features=HttpsFirstBalancedModeAutoEnable',
+  ],
 })
 const page = await browser.newPage()
 const url = process.argv[2]

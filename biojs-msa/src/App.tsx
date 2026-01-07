@@ -41,6 +41,9 @@ export default function MSA() {
           var m = new msa({
             el: ref.current,
             seqs,
+            vis: {
+              conserv: true,
+            },
           })
           m.render()
         }
