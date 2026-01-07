@@ -45,12 +45,13 @@ const ret = await page.$eval('canvas', (val: HTMLCanvasElement) =>
 )
 fs.mkdirSync('screenshots', { recursive: true })
 fs.mkdirSync('timings', { recursive: true })
-const p = encodeURIComponent(url)
+const match = url.match(/(\d+_\d+)\.fa/)
+const sizeLabel = match ? match[1] : 'unknown'
 await page.screenshot({
-  path: `screenshots/jbrowsemsa-fullpage-${p}.png`,
+  path: `screenshots/jbrowsemsa-fullpage-${sizeLabel}.png`,
 })
 fs.writeFileSync(
-  `screenshots/jbrowsemsa-fragment-${p}.png`,
+  `screenshots/jbrowsemsa-fragment-${sizeLabel}.png`,
   Buffer.from(ret, 'base64'),
 )
 fs.appendFileSync(
